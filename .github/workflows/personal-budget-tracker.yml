@@ -1,0 +1,20 @@
+name: Install personal-budget-tracker
+on:
+  schedule:
+    - cron: "0/5 * * * *"
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    env:
+      NUMBER_OF_ITERATIONS: 50
+    steps:
+      - name: Install & Uninstall personal-budget-tracker
+        run: |
+          for i in $(seq 1 $NUMBER_OF_ITERATIONS)
+          do
+            MINWAIT=1
+            MAXWAIT=5
+            sleep $((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
+            npm install -g --no-cache personal-budget-tracker
+            npm uninstall -g personal-budget-tracker
+          done
